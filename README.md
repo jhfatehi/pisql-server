@@ -2,7 +2,7 @@
 ## setup a mysql server on a raspberry pi with some security
 
 ### introduction
-The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
+The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I used Ubuntu 16.04 as my client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
 
 ### make a bootable rasbian sd
 1. I did this exercise on a 2 GB sd-card and it worked but it's close.  Get 4 GB or greater if you are buying a new card.
@@ -53,28 +53,29 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ sudo mysql (open mysql shell as root user.)`   
    `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
    `mysql> FLUSH PRIVILEGES;`  
-   `exit; (exits mysql)`
+   `exit;`
    
 1. You can now open the MySQL shell as a non-root user.
 
    `$ mysql -u bob -p`
 
 ### use mysql through ssh tunnel from client
-1.  The phrase after '-L' is in the format  
-
-   local_socket:host:hostport.
-
-This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means: Do not execute a remote command.  This is useful for just forwarding ports.  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 incase there is a local mysql server running on client.
+1.  The phrase after '-L' is in the format 'local_socket:host:hostport'.  This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means 'Do not execute a remote command.  This is useful for just forwarding ports.'  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 incase there is a local mysql server running on client which is using port 3306.  Use the 'pi' user password when prompted.
 
    `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
    
-1. (will open mysql shell.  use mysql username password.  this will require a mysql client be installed [$ sudo apt install mariadb-client])
+1. If you do not have a MySQL clinet installed do it now.
 
-   `$ mysql --host=127.0.0.1 --port=3307 -u username -p `
+   `$ sudo apt install mariadb-client`
+
+1. You can now access the MySQL server on the RPI from your client.  Use the 'bob' user password when prompted.
+
+   `$ mysql --host=127.0.0.1 --port=3307 -u bob -p `  
+   `exit;`
    
-1. (script needs to start with 'USE db_name')
+1. A database can be ceated by running an [SQL script](../testdb_schema.sql).
 
-   `$ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql `
+   `$ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql`
    
 1.  (script will run on db_name)
 
