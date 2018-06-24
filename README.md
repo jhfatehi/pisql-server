@@ -2,17 +2,17 @@
 ## setup a mysql server on a raspberry pi with some security
 
 ### introduction
-The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I used Ubuntu 16.04 as my client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
+The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both Linux distributions but I do have a few notes about using a Windows client.  I used Ubuntu 16.04 as my client.  I am not a Linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
 
 ### make a bootable rasbian sd
-1. I did this exercise on a 2 GB sd-card and it worked but it's close.  Get 4 GB or greater if you are buying a new card.
-1. Download [Rasbian](https://www.raspberrypi.org/downloads/raspbian/).  This is a RPI specific lnius distribution based on Debian.  The lite version does not include a desktop environment (GUI) which is fine for this exercise.  If you want the dsktop environment get the version with desktop but make sure your sd-card is at least 8 GB.
-1. I like [Etcher](https://etcher.io/) for buring bootable media.
+1. I did this exercise on a 2 GB SD-card and it worked but it's close.  Get 4 GB or greater if you are buying a new card.
+1. Download [Rasbian](https://www.raspberrypi.org/downloads/raspbian/).  This is a RPI specific Linux distribution based on Debian.  The lite version does not include a desktop environment (GUI) which is fine for this exercise.  If you want the desktop environment get the version with desktop but make sure your SD-card is at least 8 GB.
+1. I like [Etcher](https://etcher.io/) for burning bootable media.
 
 ### configue remote access
-1. Boot up the RPI with sd-card, monitor, and keyboard.
+1. Boot up the RPI with SD-card, monitor, and keyboard.
 1. Login with default credentials - pi/raspberry.  Note that the root login is not permitted by default.
-1. Go to the RPI configuration menu.  Use Enter for select and Escape for back.  If you are not using rasbian you will have to research how to complete the following steps seperatly.
+1. Go to the RPI configuration menu.  Use Enter for select and Escape for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
 
    `$ sudo raspi-config` 
    
@@ -21,7 +21,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `network options -> hostname`
    
-1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.  If you are using a RPI v1 or v2 you will need a WiFi dongle.
+1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.  If you are using a RPI v1 or v2 you will need a Wi-Fi dongle.
 
    `network options -> wi-fi`
 
@@ -35,7 +35,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ ip addr show`
 
 ### login though ssh
-1. From your client computer (any other computer on your network) login to the RPI at the 'pi' user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
+1. From your client computer (any other computer on your network) login to the RPI at the 'pi' user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most Linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
 
    `$ ssh pi@serverpi`
    
@@ -46,12 +46,12 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ ssh pi@serverpi`
    
-1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' do not change the root password and say yes to all other options.
+1. Install MySQL server.  In Raspbian this will actually install MariaDB which is [practical the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' do not change the root password and say yes to all other options.
 
    `$ sudo apt-get install mysql-server`  
    `$ sudo mysql_secure_installation`
   
-1. Open MySQL as the root user and create a new user with read write access to all databases.  Substiute the username and password.  I use the username bob.  Then commit the privilege change and exit the MySQL shell.
+1. Open MySQL as the root user and create a new user with read write access to all databases.  Substitute the username and password.  I use the username bob.  Then commit the privilege change and exit the MySQL shell.
 
    `$ sudo mysql (open mysql shell as root user.)`   
    `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
@@ -63,11 +63,11 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ mysql -u bob -p`
 
 ### use mysql through ssh tunnel from client
-1.  The phrase after '-L' is in the format 'local_socket:host:hostport'.  This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means 'Do not execute a remote command.  This is useful for just forwarding ports.'  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 incase there is a local mysql server running on client which is using port 3306.  Use the 'pi' user password when prompted.
+1.  The phrase after '-L' is in the format 'local_socket:host:hostport'.  This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means 'Do not execute a remote command.  This is useful for just forwarding ports.'  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 in case there is a local mysql server running on client which is using port 3306.  Use the 'pi' user password when prompted.
 
     `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
    
-1. If you do not have a MySQL clinet installed do it now.
+1. If you do not have a MySQL client installed do it now.
 
    `$ sudo apt install mariadb-client`
 
@@ -76,7 +76,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ mysql --host=127.0.0.1 --port=3307 -u bob -p `  
    `mysql> EXIT;`
    
-1. A database can be ceated by running an [SQL script](https://github.com/jhfatehi/pisql-server/blob/master/testdb_schema.sql).
+1. A database can be created by running an [SQL script](https://github.com/jhfatehi/pisql-server/blob/master/testdb_schema.sql).
 
    `$ mysql --host=127.0.0.1 --port=3307 -u bob -p < testdb_schema.sql`
    
@@ -91,17 +91,17 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ ssh pi@serverpi`
 
-1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substiute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'joe'.
+1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substitute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'joe'.
 
    `$ sudo groupadd groupname`  
    `$ sudo useradd -g groupname username`  
    `$ sudo passwd username`
 
-* For future reference this will let you delete a user + home dirrectory and mail spool.
+* For future reference this will let you delete a user + home directory and mail spool.
 
    `$ sudo userdel -r username`
 
-1. Open the SSH config file, add the following block fo text to the bottom, and the restart the SSH server to apply the changes.  This will control access by groups and then resrict assess of mysqlusers group.  The last line removes shell access over SSH from 'mysqlusers'.  Adding the 'pi' group preserves SSH access for the 'pi' user.  The 'PermitOpen' limits the port that 'mysqlusers' can bind to.  With out this line 'mysqlusers' could bind to any port.
+1. Open the SSH config file, add the following block fo text to the bottom, and the restart the SSH server to apply the changes.  This will control access by groups and then restrict assess of mysqlusers group.  The last line removes shell access over SSH from 'mysqlusers'.  Adding the 'pi' group preserves SSH access for the 'pi' user.  The 'PermitOpen' limits the port that 'mysqlusers' can bind to.  With out this line 'mysqlusers' could bind to any port.
 
    `$ sudo nano /etc/ssh/sshd_config`
 	
