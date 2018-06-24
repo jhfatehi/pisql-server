@@ -131,3 +131,4 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 ### next steps
 1. Replace user names and passwords with public and private keys for SSH access.
 1. Create a MySQL user that has full administrative privileges so root login to MySQL is not required.
+1. Repeat this exercise with Ubuntu Server or CentOS.
