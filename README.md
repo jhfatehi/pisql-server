@@ -32,7 +32,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 1. Esc to exit config menu
 1. Get the IP address of the RPI.  The IP will not be needed because of hostname but since we are here it's a good idea to grab IP now.
 
-	`$ ip addr show`
+   `$ ip addr show`
 
 ### login though ssh
 1. From your client computer (any other computer on your network) login to the RPI at the 'pi' user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
@@ -53,7 +53,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ sudo mysql (open mysql shell as root user.)`   
    `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
    `mysql> FLUSH PRIVILEGES;`  
-   `exit;`
+   `mysql> EXIT;`
    
 1. You can now open the MySQL shell as a non-root user.
 
@@ -71,7 +71,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 1. You can now access the MySQL server on the RPI from your client.  Use the 'bob' user password when prompted.
 
    `$ mysql --host=127.0.0.1 --port=3307 -u bob -p `  
-   `exit;`
+   `mysql> EXIT;`
    
 1. A database can be ceated by running an [SQL script](https://github.com/jhfatehi/pisql-server/blob/master/testdb_schema.sql).
 
@@ -85,7 +85,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
 ### add some more security
 1. SSH into 'serverpi' as the 'pi' user.
-1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substiute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'bob'.
+1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substiute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'joe'.
 
    `$ sudo groupadd groupname`  
    `$ sudo useradd -g groupname username`  
@@ -95,7 +95,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ sudo userdel -r username`
 
-1. Open the SSH config file and add the following block fo text to the bottom.  This will control access by groups and then resrict assess of mysqlusers group.  The last line removes shell access over SSH from 'mysqlusers'.  Adding the 'pi' group preserves SSH access for the 'pi' user.  The 'PermitOpen' limits the port that 'mysqlusers' can bind to.  With out this line 'mysqlusers' could bind to any port.
+1. Open the SSH config file, add the following block fo text to the bottom, and the restart the SSH server to apply the changes.  This will control access by groups and then resrict assess of mysqlusers group.  The last line removes shell access over SSH from 'mysqlusers'.  Adding the 'pi' group preserves SSH access for the 'pi' user.  The 'PermitOpen' limits the port that 'mysqlusers' can bind to.  With out this line 'mysqlusers' could bind to any port.
 
    `$ sudo nano /etc/ssh/sshd_config`
 	
@@ -105,16 +105,20 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X11Forwarding no  
    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PermitTTY no  
    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ForceCommand /bin/false
+   
+   `$ sudo service ssh restart`
 
-1. $ sudo service ssh restart (this will restart ssh server with new rules)
-1. $ sudo mysql
-1. CREATE USER 'mysqltester'@'localhost' IDENTIFIED BY 'password'; (create new user which will have restricted permissions.)
-1. GRANT ALL PRIVILEGES ON testdb.* TO 'mysqltester'@'localhost';
-1. FLUSH PRIVILEGES;
-1. can now give testuser + pwd and mysqltest + pwd to someone and they can securely connect to the specified database with all privages but have no other access to the server
-    	$ ssh testuser@serverpi -L 3307:127.0.0.1:3306 -N
-    	$ mysql --host=127.0.0.1 --port=3307 -u mysqltester -p
-    	mysql> use testdb;
+1. Open MySQL shell as root and create a new user that has read write access only to the 'testdb' database.
+   `$ sudo mysql`
+   `mysql> CREATE USER 'mysqltester'@'localhost' IDENTIFIED BY 'password';`
+   `mysql> GRANT ALL PRIVILEGES ON testdb.* TO 'mysqltester'@'localhost';`
+   `mysql> FLUSH PRIVILEGES;`
+   `mysql> EXIT;`
+   
+1. The user 'joe' can now use the 'mysqltester' user to access testdb but no other databases.  The user 'joe' has no other access in the RPI.  At least that's the goal.
+   `$ ssh joe@serverpi -L 3307:127.0.0.1:3306 -N`
+   `$ mysql --host=127.0.0.1 --port=3307 -u mysqltester -p`
+   `mysql> USE testdb;`
 
 ### next steps
 1. Replace user names and passwords with public and private keys for SSH access.
