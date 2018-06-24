@@ -39,7 +39,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ ssh pi@serverpi`
    
-*. Windows - You can use PuTTY to login via SSH.  Using the IP address will work in PuTTY.  The RPI should keep same IP if router is not re-started.  It might keep same address after a restart too.  I'm guessing the hostname instead of IP will work in PuTTY but I have not tried it.
+* Windows - You can use PuTTY to login via SSH.  Using the IP address will work in PuTTY.  The RPI should keep same IP if router is not re-started.  It might keep same address after a restart too.  I'm guessing the hostname instead of IP will work in PuTTY but I have not tried it.
 
 ### install and configure mysql 
 1. SSH into 'serverpi' as the 'pi' user.
