@@ -1,3 +1,4 @@
+# pisql-server
 # Setup a MySQL server on a RPI with some security.
 ## 1. make a bootable rasbian sd
 	a. 2gb sd card works but it's close.  get 4gb or greater if buying a new card.
