@@ -21,7 +21,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `network options -> hostname`
    
-1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.
+1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.  If you are using a RPI v1 or v2 you will need a WiFi dongle.
 
    `network options -> wi-fi`
 
@@ -35,14 +35,21 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 	`$ ip addr show`
 
 ### login though ssh
-1. $ ssh pi@serverpi (there will be a warning about this being the first time connecting to computer so make sure you know what it is.  most linux distributions comes with OpenSSH client.  if yours does not install it now.)
-1. *Windows* need to have putty.  ip address will work in putty.  pi should keep same ip if router is not re-started.  might keep same address after restart too.  hostname might work in putty but i have not tried
+1. From your client computer (any other computer on your network) login to the RPI at the 'pi' user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
+
+   `$ ssh pi@serverpi`
+   
+*. *Windows* You can use PuTTY to login via SSH.  Using the IP address will work in PuTTY.  The RPI should keep same IP if router is not re-started.  It might keep same address after a restart too.  I'm guessing the hostname instead of IP will work in PuTTY but I have not tried it.
 
 ### install and configure mysql 
-1. ssh into serverpi
-1. $ sudo apt-get install mysql-server
+1. SSH into 'serverpi' as the 'pi' user.
+1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.
+
+   `$ sudo apt-get install mysql-server`
+   `$ sudo mysql_secure_installation`
+  
 1. $ sudo mysql_secure_installation (default root password is blank.  no not chnage root password and say yes to all other options)
-1. $ sudo mysql (open mysql shell as root user.  shell will say MariaDB which is almost the same as mysql.  https://blog.panoply.io/a-comparative-vmariadb-vs-mysql)
+1. $ sudo mysql (open mysql shell as root user.)
 1. GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password'; (create a new user will full privliges)
 1. exit; (exits mysql)
 1. $ mysql -u username -p (mysql shell can now be opened without root)
