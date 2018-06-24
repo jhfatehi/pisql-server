@@ -99,11 +99,11 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ sudo nano /etc/ssh/sshd_config`
 	
-	AllowGroups pi mysqlusers
-	Match Group mysqlusers
-	        PermitOpen 127.0.0.1:3306
-	        X11Forwarding no
-	        PermitTTY no
+	AllowGroups pi mysqlusers  
+	Match Group mysqlusers  
+	        PermitOpen 127.0.0.1:3306  
+	        X11Forwarding no  
+	        PermitTTY no  
 	        ForceCommand /bin/false
 
 1. $ sudo service ssh restart (this will restart ssh server with new rules)
