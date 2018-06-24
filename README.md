@@ -43,16 +43,18 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
 ### install and configure mysql 
 1. SSH into 'serverpi' as the 'pi' user.
-1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.
+1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' no not chnage root password and say yes to all other options.
 
-   `$ sudo apt-get install mysql-server`
+   `$ sudo apt-get install mysql-server`  
    `$ sudo mysql_secure_installation`
   
-1. $ sudo mysql_secure_installation (default root password is blank.  no not chnage root password and say yes to all other options)
-1. $ sudo mysql (open mysql shell as root user.)
-1. GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password'; (create a new user will full privliges)
-1. exit; (exits mysql)
-1. $ mysql -u username -p (mysql shell can now be opened without root)
+1. Open MySQL as the root user and create a new user with read write access to all databases.  Substiute the username and password.  I use the username bob.  Then commit the privilege change and exit the MySQL shell.
+   `$ sudo mysql (open mysql shell as root user.)`   
+   `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
+   `mysql> FLUSH PRIVILEGES;`
+   `exit; (exits mysql)`
+1. You can not open the MySQL shell as a non-root user.
+   `$ mysql -u bob -p`
 
 ### use mysql through ssh tunnel from client
 1. $ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N (use pi user password.  this will open the tunnel.  if the bash shell is closed the tunnel will also close.  usering port 3307 instead of default 3306 incase ther is a local mysql server running on client)
@@ -87,4 +89,5 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
     	mysql> use testdb;
 
 ### next steps
-1. replace ssh user names and passwords with public and private keys
+1. Replace user names and passwords with public and private keys for SSH access.
+1. Create a MySQL user that has full administrative privileges so root login to MySQL is not required.
