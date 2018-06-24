@@ -15,17 +15,24 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 1. Go to the RPI configuration menu.  Use Enter for select and Escape for back.  If you are not using rasbian you will have to research how to complete the following steps seperatly.
 
    `$ sudo raspi-config` 
+   
 1. Change password of 'pi' user.
 1. Change the hostname.  I use the hostname 'serverpi'.
 
    `network options -> hostname`
    
-1. network options -> wi-fi (not required if wired connection is being use, which is a good idea if possible)
+1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.
 
+   `network options -> wi-fi`
 
-1. interfacing options -> ssh -> enable
-1. esc to exit config menu
-1. $ ip addr show (ip will not be needed because of hostname but good idea to grab ip now)
+1. Enable the SSH server.
+
+   `interfacing options -> ssh -> enable`
+   
+1. Esc to exit config menu
+1. Get the IP address of the RPI.  The IP will not be needed because of hostname but since we are here it's a good idea to grab IP now.
+
+	`$ ip addr show`
 
 ### login though ssh
 1. $ ssh pi@serverpi (there will be a warning about this being the first time connecting to computer so make sure you know what it is.  most linux distributions comes with OpenSSH client.  if yours does not install it now.)
