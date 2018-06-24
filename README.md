@@ -60,7 +60,11 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ mysql -u bob -p`
 
 ### use mysql through ssh tunnel from client
-1.  (use pi user password.  this will open the tunnel.  if the bash shell is closed the tunnel will also close.  usering port 3307 instead of default 3306 incase ther is a local mysql server running on client)
+1.  The phrase after '-L' is in the format  
+
+   local_socket:host:hostport.
+
+This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means: Do not execute a remote command.  This is useful for just forwarding ports.  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 incase there is a local mysql server running on client.
 
    `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
    
@@ -75,7 +79,8 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 1.  (script will run on db_name)
 
    `$ mysql --host=127.0.0.1 --port=3307 -u username -p db_name < script_to_run.sql`
-1. *Windows* here are putty instructions for the tunnel https://www.linode.com/docs/databases/mysql/create-an-ssh-tunnel-for-mysql-remote-access/
+   
+* Windows - PuTTY [instructions](https://www.linode.com/docs/databases/mysql/create-an-ssh-tunnel-for-mysql-remote-access/) for the tunnel.
 
 ### add some more security
 1. ssh into server pi
