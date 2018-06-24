@@ -43,6 +43,9 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
 ### install and configure mysql 
 1. SSH into 'serverpi' as the 'pi' user.
+
+   `$ ssh pi@serverpi`
+   
 1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' do not change the root password and say yes to all other options.
 
    `$ sudo apt-get install mysql-server`  
@@ -85,6 +88,9 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
 ### add some more security
 1. SSH into 'serverpi' as the 'pi' user.
+
+   `$ ssh pi@serverpi`
+
 1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substiute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'joe'.
 
    `$ sudo groupadd groupname`  
@@ -109,15 +115,15 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ sudo service ssh restart`
 
 1. Open MySQL shell as root and create a new user that has read write access only to the 'testdb' database.
-   `$ sudo mysql`
-   `mysql> CREATE USER 'mysqltester'@'localhost' IDENTIFIED BY 'password';`
-   `mysql> GRANT ALL PRIVILEGES ON testdb.* TO 'mysqltester'@'localhost';`
-   `mysql> FLUSH PRIVILEGES;`
+   `$ sudo mysql`  
+   `mysql> CREATE USER 'mysqltester'@'localhost' IDENTIFIED BY 'password';`  
+   `mysql> GRANT ALL PRIVILEGES ON testdb.* TO 'mysqltester'@'localhost';`  
+   `mysql> FLUSH PRIVILEGES;`  
    `mysql> EXIT;`
    
 1. The user 'joe' can now use the 'mysqltester' user to access testdb but no other databases.  The user 'joe' has no other access in the RPI.  At least that's the goal.
-   `$ ssh joe@serverpi -L 3307:127.0.0.1:3306 -N`
-   `$ mysql --host=127.0.0.1 --port=3307 -u mysqltester -p`
+   `$ ssh joe@serverpi -L 3307:127.0.0.1:3306 -N`  
+   `$ mysql --host=127.0.0.1 --port=3307 -u mysqltester -p`  
    `mysql> USE testdb;`
 
 ### next steps
