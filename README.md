@@ -9,7 +9,7 @@ a. 2gb sd card works but it's close.  get 4gb or greater if buying a new card.
 b. https://etcher.io/ (to burn sd)
 c. https://www.raspberrypi.org/downloads/raspbian/ (choose lite)
 
-### 2. configue remote access
+### 1. configue remote access
 a. boot up pi with monitor and keyboard
 b. login with default credentials - pi/raspberry (root login is not permitted by default)
 c. $ sudo raspi-config (enter for select and escape for back)
