@@ -73,7 +73,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    `$ mysql --host=127.0.0.1 --port=3307 -u bob -p `  
    `exit;`
    
-1. A database can be ceated by running an [SQL script](../testdb_schema.sql).
+1. A database can be ceated by running an [SQL script](../blob/master/testdb_schema.sql).
 
    `$ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql`
    
