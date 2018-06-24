@@ -65,7 +65,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 ### use mysql through ssh tunnel from client
 1.  The phrase after '-L' is in the format 'local_socket:host:hostport'.  This binds localhost (127.0.0.1) port 3306 (the default MySQL port) from serverpi to the client's port 3307.  The '-N' means 'Do not execute a remote command.  This is useful for just forwarding ports.'  This will open the tunnel.  If the terminal window is closed the tunnel will also close.  I am using port 3307 on the client instead of 3306 incase there is a local mysql server running on client which is using port 3306.  Use the 'pi' user password when prompted.
 
-   `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
+    `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
    
 1. If you do not have a MySQL clinet installed do it now.
 
