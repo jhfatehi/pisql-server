@@ -2,7 +2,7 @@
 ## setup a mysql server on a raspberry pi with some security
 
 ### introduction
-The purpose of this exercise is to guide you through the process of setting up a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
+The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
 
 ### make a bootable rasbian sd
 1. I did this exercise on a 2 GB sd-card and it worked but it's close.  Get 4 GB or greater if you are buying a new card.
@@ -13,7 +13,7 @@ The purpose of this exercise is to guide you through the process of setting up a
 1. Boot up the RPI with sd-card, monitor, and keyboard.
 1. Login with default credentials - pi/raspberry.  Note that the root login is not permitted by default.
 1. Go to the RPI configuration menu.  Use Enter for select and Escape for back.  If you are not using rasbian you will have to research how to complete the following steps seperatly.
-	$ sudo raspi-config
+   '$ sudo raspi-config'
 1. change password of 'pi' user
 1. network options -> hostname (i use the hostname serverpi)
 1. network options -> wi-fi (not required if wired connection is being use, which is a good idea if possible)
