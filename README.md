@@ -1,2 +1,2 @@
 # pisql-server
-Setupsetup a MySQL server on a RPI with some security.
+Setup a MySQL server on a RPI with some security.
