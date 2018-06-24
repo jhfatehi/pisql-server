@@ -75,21 +75,29 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
    
 1. A database can be ceated by running an [SQL script](https://github.com/jhfatehi/pisql-server/blob/master/testdb_schema.sql).
 
-   `$ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql`
+   `$ mysql --host=127.0.0.1 --port=3307 -u bob -p < testdb_schema.sql`
    
-1.  (script will run on db_name)
+* For future reference, it is also possible to run a script against and existing database.
 
-   `$ mysql --host=127.0.0.1 --port=3307 -u username -p db_name < script_to_run.sql`
+   `$ mysql --host=127.0.0.1 --port=3307 -u bob -p db_name < script_to_run.sql`
    
 * Windows - PuTTY [instructions](https://www.linode.com/docs/databases/mysql/create-an-ssh-tunnel-for-mysql-remote-access/) for the tunnel.
 
 ### add some more security
-1. ssh into server pi
-1. $ sudo groupadd mysqlusers (create group for mysql users)
-1. $ sudo useradd -g mysqlusers testuser (crate testuser in mysqlusers)
-1. $ sudo passwd testuser (create password for new user)
-1. $ sudo userdel -r testuser (in the future this will let you delete user + home dirrectory and mail spool)
-1. $ sudo nano /etc/ssh/sshd_config (add the text below to sshd_config.  this will control access by groups and then resrict assess of mysqlusers group.  last line removes shell access from ssh.  adding pi group preserves ssh access for pi user)
+1. SSH into 'serverpi' as the 'pi' user.
+1. Create a group for MySQL users, create a user in that group, and assign a password to that user.  Substiute the groupname and username.  I user the groupname 'mysqlusers' and I use the username 'bob'.
+
+   `$ sudo groupadd groupname`  
+   `$ sudo useradd -g groupname username`  
+   `$ sudo passwd username`
+
+* For future reference this will let you delete a user + home dirrectory and mail spool.
+
+   `$ sudo userdel -r username`
+
+1. Open the SSH config file and add the following block fo text to the bottom.  This will control access by groups and then resrict assess of mysqlusers group.  The last line removes shell access over SSH from 'mysqlusers'.  Adding the 'pi' group preserves SSH access for the 'pi' user.  The 'PermitOpen' limits the port that 'mysqlusers' can bind to.  With out this line 'mysqlusers' could bind to any port.
+
+   `$ sudo nano /etc/ssh/sshd_config`
 	
 	AllowGroups pi mysqlusers
 	Match Group mysqlusers
