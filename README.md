@@ -12,7 +12,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 ### configue remote access
 1. Boot up the RPI with SD-card, monitor, and keyboard.
 1. Login with default credentials which are user name **pi** and password **raspberry**.  Note that the root login is not permitted by default.
-1. Go to the RPI configuration menu.  Use **Enter** for select and **Escape** for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
+1. Go to the RPI configuration menu.  Use *Enter* for select and *Escape* for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
 
    `$ sudo raspi-config` 
    
@@ -29,7 +29,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `interfacing options -> ssh -> enable`
    
-1. **Esc** to exit config menu.
+1. *Escape* to exit config menu.
 1. Get the IP address of the RPI.  The IP will not be needed because the RPI can be addressed by the hostname but since we are here it's a good idea to grab it now.
 
    `$ ip addr show`
