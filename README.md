@@ -5,9 +5,9 @@
 
 
 ### 1. make a bootable rasbian sd
-1. 2gb sd card works but it's close.  get 4gb or greater if buying a new card.
-..1. https://etcher.io/ (to burn sd)
-c. https://www.raspberrypi.org/downloads/raspbian/ (choose lite)
+..1. 2gb sd card works but it's close.  get 4gb or greater if buying a new card.
+..2. https://etcher.io/ (to burn sd)
+..3. https://www.raspberrypi.org/downloads/raspbian/ (choose lite)
 
 ### 2. configue remote access
 a. boot up pi with monitor and keyboard
