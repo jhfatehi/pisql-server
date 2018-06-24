@@ -39,28 +39,42 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ ssh pi@serverpi`
    
-*. *Windows* You can use PuTTY to login via SSH.  Using the IP address will work in PuTTY.  The RPI should keep same IP if router is not re-started.  It might keep same address after a restart too.  I'm guessing the hostname instead of IP will work in PuTTY but I have not tried it.
+*. Windows - You can use PuTTY to login via SSH.  Using the IP address will work in PuTTY.  The RPI should keep same IP if router is not re-started.  It might keep same address after a restart too.  I'm guessing the hostname instead of IP will work in PuTTY but I have not tried it.
 
 ### install and configure mysql 
 1. SSH into 'serverpi' as the 'pi' user.
-1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' no not chnage root password and say yes to all other options.
+1. Install MySQL server.  In Raspbian this will actuall install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password is blank.  When running the 'mysql_secure_installation' do not change the root password and say yes to all other options.
 
    `$ sudo apt-get install mysql-server`  
    `$ sudo mysql_secure_installation`
   
 1. Open MySQL as the root user and create a new user with read write access to all databases.  Substiute the username and password.  I use the username bob.  Then commit the privilege change and exit the MySQL shell.
+
    `$ sudo mysql (open mysql shell as root user.)`   
    `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
-   `mysql> FLUSH PRIVILEGES;`
+   `mysql> FLUSH PRIVILEGES;`  
    `exit; (exits mysql)`
-1. You can not open the MySQL shell as a non-root user.
+   
+1. You can now open the MySQL shell as a non-root user.
+
    `$ mysql -u bob -p`
 
 ### use mysql through ssh tunnel from client
-1. $ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N (use pi user password.  this will open the tunnel.  if the bash shell is closed the tunnel will also close.  usering port 3307 instead of default 3306 incase ther is a local mysql server running on client)
-1. $ mysql --host=127.0.0.1 --port=3307 -u username -p (will open mysql shell.  use mysql username password.  this will require a mysql client be installed [$ sudo apt install mariadb-client])
-1. $ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql (script needs to start with 'USE db_name')
-1. $ mysql --host=127.0.0.1 --port=3307 -u username -p db_name < script_to_run.sql (script will run on db_name)
+1.  (use pi user password.  this will open the tunnel.  if the bash shell is closed the tunnel will also close.  usering port 3307 instead of default 3306 incase ther is a local mysql server running on client)
+
+   `$ ssh pi@serverpi -L 3307:127.0.0.1:3306 -N`
+   
+1. (will open mysql shell.  use mysql username password.  this will require a mysql client be installed [$ sudo apt install mariadb-client])
+
+   `$ mysql --host=127.0.0.1 --port=3307 -u username -p `
+   
+1. (script needs to start with 'USE db_name')
+
+   `$ mysql --host=127.0.0.1 --port=3307 -u username -p < testdb_schema.sql `
+   
+1.  (script will run on db_name)
+
+   `$ mysql --host=127.0.0.1 --port=3307 -u username -p db_name < script_to_run.sql`
 1. *Windows* here are putty instructions for the tunnel https://www.linode.com/docs/databases/mysql/create-an-ssh-tunnel-for-mysql-remote-access/
 
 ### add some more security
