@@ -11,17 +11,17 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
 ### configue remote access
 1. Boot up the RPI with SD-card, monitor, and keyboard.
-1. Login with default credentials - pi/raspberry.  Note that the root login is not permitted by default.
-1. Go to the RPI configuration menu.  Use Enter for select and Escape for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
+1. Login with default credentials which are user name *pi* and password *raspberry*.  Note that the root login is not permitted by default.
+1. Go to the RPI configuration menu.  Use *Enter* for select and *Escape* for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
 
    `$ sudo raspi-config` 
    
-1. Change password of 'pi' user.
-1. Change the hostname.  I use the hostname 'serverpi'.
+1. Change password of *pi* user.
+1. Change the hostname.  I use the hostname *serverpi*.
 
    `network options -> hostname`
    
-1. Enable WiFi.  This is not required if a wired connection is being use, which is a good idea if possible.  If you are using a RPI v1 or v2 you will need a Wi-Fi dongle.
+1. Enable Wi-Fi.  This is not required if a wired connection is being use, which is a good idea if possible.  If you are using a RPI v1 or v2 you will need a Wi-Fi dongle.
 
    `network options -> wi-fi`
 
@@ -33,6 +33,8 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 1. Get the IP address of the RPI.  The IP will not be needed because of hostname but since we are here it's a good idea to grab IP now.
 
    `$ ip addr show`
+   
+1. The monitor and keyboard are no longer required.
 
 ### login though ssh
 1. From your client computer (any other computer on your network) login to the RPI at the 'pi' user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most Linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
@@ -53,7 +55,7 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
   
 1. Open MySQL as the root user and create a new user with read write access to all databases.  Substitute the username and password.  I use the username bob.  Then commit the privilege change and exit the MySQL shell.
 
-   `$ sudo mysql (open mysql shell as root user.)`   
+   `$ sudo mysql`   
    `mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';`   
    `mysql> FLUSH PRIVILEGES;`  
    `mysql> EXIT;`
