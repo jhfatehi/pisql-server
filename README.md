@@ -1,13 +1,13 @@
 # pisql-server
-## Setup a MySQL server on a Raspberry Pi with some security.
+## setup a mysql server on a raspberry pi with some security
 
 ### introduction
 The purpose of this exercise is to guide you through the process of setting up a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both linux distributions but I do have a few notes about using a Windows client.  I am not a linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
 
 ### make a bootable rasbian sd
 1. I did this exercise on a 2 GB sd card and it worked but it's close.  Get 4 gb or greater if you are buying a new card.
-1. Download [rasbian](https://www.raspberrypi.org/downloads/raspbian/).  This is a RPI specific lnius distribution based on Debian.  The lite version does not include a desktop environment (GUI) which is fine for this exercise.  If you want the dsktop environment get the version with desktop but make sure your sd card is at least 8 GB.
-1. I like https://etcher.io/ (to burn sd)
+1. Download [Rasbian](https://www.raspberrypi.org/downloads/raspbian/).  This is a RPI specific lnius distribution based on Debian.  The lite version does not include a desktop environment (GUI) which is fine for this exercise.  If you want the dsktop environment get the version with desktop but make sure your sd card is at least 8 GB.
+1. I like [Etcher](https://etcher.io/) for buring bootable media.
 
 ### configue remote access
 a. boot up pi with monitor and keyboard
