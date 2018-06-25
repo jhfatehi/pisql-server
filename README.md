@@ -10,7 +10,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
 1. I like [Etcher](https://etcher.io/) for burning bootable media.
 
 ### configure remote access
-1. Boot up the <span style="color:blue"> RPI with SD-card, </span> monitor, and keyboard.
+1. Boot up the <span style="color:red"> RPI *with* SD-card, </span> monitor, and keyboard.
 1. Login with default credentials which are user name **pi** and password **raspberry**.  Note that the root login is not permitted by default.
 1. Go to the RPI configuration menu.  Use *Enter* for select and *Escape* for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
 
