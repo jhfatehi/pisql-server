@@ -102,7 +102,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
 
    `$ sudo groupadd mysqlgroup`  
    `$ sudo useradd -g mysqlgroup piuser2`  
-   `$ sudo passwd mysqluser2`
+   `$ sudo passwd piuser2`
 
 * For future reference this will let you delete a user along with the user's home directory and mail spool.
 
