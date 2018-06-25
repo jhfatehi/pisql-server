@@ -2,14 +2,14 @@
 ## setup a mysql server on a raspberry pi with some security
 
 ### introduction
-The purpose of this exercise is to setup a MySQL server on a RPI and connecting to it through a SSH tunnel on your local network.  The server and client are both Linux distributions but I do have a few notes about using a Windows client.  I used Ubuntu 16.04 as my client.  I am not a Linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
+The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) and connecting to it through a SSH tunnel on your local network.  The server and client are both Linux distributions but I do have a few notes about using a Windows client.  I used Ubuntu 16.04 as my client.  I am not a Linux wiz so I'm not sure if there would be any difference with the default SSH configuration using a different server distribution.  At the end there is a bit on adding more security which is not really required on your local network but good to learn for servers on the internet like DigitalOcean.
 
 ### make a bootable rasbian sd
 1. I did this exercise on a 2 GB SD-card and it worked but it's close.  Get 4 GB or greater if you are buying a new card.
 1. Download [Rasbian](https://www.raspberrypi.org/downloads/raspbian/).  This is a RPI specific Linux distribution based on Debian.  The lite version does not include a desktop environment (GUI) which is fine for this exercise.  If you want the desktop environment get the version with desktop but make sure your SD-card is at least 8 GB.
 1. I like [Etcher](https://etcher.io/) for burning bootable media.
 
-### configue remote access
+### configure remote access
 1. Boot up the RPI with SD-card, monitor, and keyboard.
 1. Login with default credentials which are user name **pi** and password **raspberry**.  Note that the root login is not permitted by default.
 1. Go to the RPI configuration menu.  Use *Enter* for select and *Escape* for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
@@ -34,10 +34,14 @@ The purpose of this exercise is to setup a MySQL server on a RPI and connecting 
 
    `$ ip addr show`
    
+1. Restart the RPI so the the setting can take effect.
+
+   `$ reboot`
+   
 1. The monitor and keyboard are no longer required.
 
 ### login though ssh
-1. From your client computer (any other computer on your network) login to the RPI as the **pi** user via SSH.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most Linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
+1. From your client computer (any other computer on your network) login to the RPI as the **pi** user via SSH.  Substitute **serverpi** with whatever hostname you used.  There will be a warning about this being the first time connecting to a new computer which is the RPI in this case so say yes.  Most Linux distributions comes with OpenSSH client.  If yours does not you will need to research how to install it.
 
    `$ ssh pi@serverpi`
    
