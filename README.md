@@ -14,7 +14,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
 1. Login with default credentials which are user name **pi** and password **raspberry**.  Note that the root login is not permitted by default.
 1. Go to the RPI configuration menu.  Use *Enter* for select and *Escape* for back.  If you are not using Rasbian you will have to research how to complete the following steps separately.
 
-   <span style="color:red">`$ sudo raspi-config`</span>` 
+   <span style="color:red">`$ sudo raspi-config`</span>
    
 1. Change password of **pi** user.
 1. Change the hostname.  I use the hostname **serverpi**.
