@@ -110,7 +110,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
 
 1. Open the SSH config file, add the following block of text to the bottom, and restart the SSH server to apply the changes.  This will control access by groups and then restrict assess of **mysqlgroup**.  The last line removes shell access over SSH from **mysqlgroup**.  Adding the **pi** group preserves SSH access for the **pi** user.  The *PermitOpen* limits the port that **mysqlgroup** can bind to.  With out this line **mysqlgroup** could bind to any port.
 
-   <span style="color:red">`$ sudo nano /etc/ssh/sshd_config`
+   <span style="color:red">`$ sudo nano /etc/ssh/sshd_config`</span>
 	
    >AllowGroups pi mysqlgroup  
    >Match Group mysqlgroup  
@@ -119,7 +119,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PermitTTY no  
    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ForceCommand /bin/false
    
-   `$ sudo service ssh restart`</span>
+   <span style="color:red">`$ sudo service ssh restart`</span>
 
 1. Open MySQL shell as root and create a new user that has read write access only to the **testdb** database.
 
