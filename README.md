@@ -52,7 +52,7 @@ The purpose of this exercise is to setup a MySQL server on a Raspberry Pi (RPI) 
 
    <span style="color:green">`$ ssh pi@serverpi`</span>
    
-1. Install MySQL server.  In Raspbian this will actually install MariaDB which is [practical the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password for MySQL is blank.  When running the *mysql_secure_installation* script do not change the root password and say yes to all other options.
+1. Install MySQL server.  In Raspbian this will actually install MariaDB which is [practicaly the same](https://blog.panoply.io/a-comparative-vmariadb-vs-mysql) as MySQL.  The default root password for MySQL is blank.  When running the *mysql_secure_installation* script do not change the root password and say yes to all other options.
 
    <span style="color:red">`$ sudo apt-get install mysql-server`  
    `$ sudo mysql_secure_installation`</span>
